@@ -79,26 +79,37 @@ const findConversationById = async(id) => {
 }
 
 const createConversation = async(obj) => {
-
-    const data = await Conversations.create({
+    let participant
+    let owner
+    const data = await Conversations.create({ //? creando la conversacion
         id: uuid.v4(),
         title: obj.title,
         imageUrl: obj.imageUrl,
-        userId: obj.userId
+        userId: obj.userId //* El userId es el owner
     })
-    if (data) {
-    const conversationParticipants = await Participants.create({
+    if (data) { //? si se creo la conversacion me crea un participante
+        participant = await Participants.create({
             id: uuid.v4(),
             conversationId: data.id,
             userId: obj.participantId
         })
-        const admin = await Participants.create({
+    }
+    if (participant) { //? Si el participante se creo, me crea un nuevo participante que sera el OWNER
+        owner = await Participants.create({
             id: uuid.v4(),
             conversationId: data.id,
-            userId: obj.userId
+            userId: obj.userId //* El userId es el owner
         })
     }
-    return data
+    if (owner) {
+        return data
+        }else{
+            await Conversations.destroy({
+        where: {
+            id: data.id
+            }
+        })
+    }
 }
 
 const updateConversation = async(id, obj) => {
