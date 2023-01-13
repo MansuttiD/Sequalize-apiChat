@@ -1,0 +1,161 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Chat API",
+        "description": "En este proyecto creado con express manejamos una api de chats sencillas como parte de un proyecto full stack JR",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9000/api/v1"
+        }
+    ],
+    "tags":[
+        {
+        "name": "Users",
+        "description": "Todas las rutas relacionadas a Usuarios"
+        },
+        {
+        "name": "Login",
+        "description": "Rutas de inicio de sesion"
+        },
+        {
+        "name": "Conversations",
+        "description": "Todas las rutas relacionadas a las Conversaciones y Mensajes"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {  
+                "tags": [
+                    "Users"
+                ],          
+                "summary": "Retorna una lista de usuarios",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Crea un nuevo usuario"
+            }
+        },
+        "/users/me": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Retorna el perfil de un usuarios logeado",
+                "responses": {
+                    "200": {
+                        "description": "Perfil de usuario"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Edita el usuario",
+                "responses": {
+                    "200": {
+                        "description": "Usuario exitosamente Editado"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Borra el usuario",
+                "responses": {
+                    "204": {
+                        "description": "Borrado exitoso"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Retorna un usuario por id",
+                "parameters": [
+                    {
+                        "name": "UserID",
+                        "in": "path",
+                        "description": "Id del usuario a retornar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna un usuario"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Edita un usuario por id",
+                "responses": {
+                    "200": {
+                        "description": "Edita un usuario"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Borra un usuario por id",
+                "responses": {
+                    "204": {
+                        "description": "Borrado exitoso"
+                    },
+                    "400": {
+                        "description": "Error de sequalize"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            }
+        }
+        
+    }
+}

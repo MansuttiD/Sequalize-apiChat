@@ -7,7 +7,7 @@ const Messages= require('../models/messages.models')
 const findAllMessages = async(id) => {
     const data = await Messages.findAll({
         attributes: {
-            exclude: ['userId', 'conversationId', 'createdAt', 'updatedAt']
+            exclude: ['userId', 'conversationId', 'updatedAt']
         },
         where: {
             conversationId: id
